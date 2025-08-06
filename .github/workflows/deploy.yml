@@ -1,0 +1,33 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up SSH key
+        run: |
+          echo "$EC2_SSH_KEY" > key.pem
+          chmod 400 key.pem
+        env:
+          EC2_SSH_KEY: ${{ secrets.EC2_SSH_KEY }}
+
+      - name: Copy project to EC2
+        run: |
+          rsync -avz -e "ssh -i key.pem -o StrictHostKeyChecking=no" ./ ${{ secrets.EC2_HOST }}:/home/ec2-user/app/
+
+      - name: Run docker-compose on EC2
+        run: |
+          ssh -i key.pem -o StrictHostKeyChecking=no ${{ secrets.EC2_HOST }} << 'EOF'
+            cd /home/ec2-user/app
+            docker-compose down
+            docker-compose build --no-cache
+            docker-compose up -d
+          EOF
