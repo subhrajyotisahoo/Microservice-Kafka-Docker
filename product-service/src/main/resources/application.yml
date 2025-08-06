@@ -1,0 +1,3 @@
+spring:
+  profiles:
+    active: dev  # Change to "dev" for dev environment
