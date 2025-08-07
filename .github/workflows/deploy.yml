@@ -51,5 +51,5 @@ jobs:
             ./mvnw -f order-service/pom.xml clean package -DskipTests
             ./mvnw -f notification-service/pom.xml clean package -DskipTests
             ./mvnw -f eureka-server/pom.xml clean package -DskipTests
-            docker-compose build
+            docker-compose build 
             docker-compose up -d
