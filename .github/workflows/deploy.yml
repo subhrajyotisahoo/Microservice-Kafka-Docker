@@ -45,11 +45,20 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             cd /home/ec2-user/InventoryMangementProject
+
+            echo "Stopping containers..."
             docker-compose down
+
+            echo "Cleaning unused Docker data..."
+            docker system prune -af --volumes
+
+            echo "Building updated JARs..."
             ./mvnw -f user-service/pom.xml clean package -DskipTests
             ./mvnw -f product-service/pom.xml clean package -DskipTests
             ./mvnw -f order-service/pom.xml clean package -DskipTests
             ./mvnw -f notification-service/pom.xml clean package -DskipTests
             ./mvnw -f eureka-server/pom.xml clean package -DskipTests
-            docker-compose build 
-            docker-compose up -d
+
+            echo "Rebuilding and starting Docker containers..."
+            docker-compose build
+            docker-compose up -d --remove-orphans
