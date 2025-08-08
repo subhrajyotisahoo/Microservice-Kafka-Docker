@@ -16,9 +16,9 @@ spring:
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
 
   datasource:
-    url: jdbc:mysql://mysql-order:3306/orderdb   # Docker container name for order DB
-    username: root
-    password: root   # Must match docker-compose.prod.yml
+    url: jdbc:mysql://microservices-db.c7e42wekkhl4.eu-north-1.rds.amazonaws.com:3306/orderdb   # Docker container name for order DB
+    username: admin
+    password: root1234   # Must match docker-compose.prod.yml
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:

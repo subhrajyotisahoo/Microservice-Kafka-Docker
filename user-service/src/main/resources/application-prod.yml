@@ -6,9 +6,9 @@ spring:
     name: user-service
 
   datasource:
-    url: jdbc:mysql://mysql-user:3306/userdb   # container name used in docker-compose
-    username: root
-    password: root
+    url: jdbc:mysql://microservices-db.c7e42wekkhl4.eu-north-1.rds.amazonaws.com:3306/userdb   # container name used in docker-compose
+    username: admin
+    password: root1234
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:

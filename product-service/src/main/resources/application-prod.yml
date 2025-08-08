@@ -10,9 +10,9 @@ spring:
       enabled: false
 
   datasource:
-    url: jdbc:mysql://mysql-product:3306/productdb   # Matches service name in docker-compose.prod.yml
-    username: root
-    password: root  # Use the production DB password defined in docker-compose
+    url: jdbc:mysql://microservices-db.c7e42wekkhl4.eu-north-1.rds.amazonaws.com:3306/productdb   # Matches service name in docker-compose.prod.yml
+    username: admin
+    password: root1234  # Use the production DB password defined in docker-compose
     driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
